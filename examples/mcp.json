@@ -1,0 +1,13 @@
+{
+  "//": "MCP client config. Replace YOUR_KEY with a key from https://appstorespy.com/account.",
+  "//discovery": "initialize and tools/list need no key; only tools/call does.",
+  "mcpServers": {
+    "appstorespy": {
+      "type": "http",
+      "url": "https://api.appstorespy.com/mcp",
+      "headers": {
+        "API-KEY": "YOUR_KEY"
+      }
+    }
+  }
+}

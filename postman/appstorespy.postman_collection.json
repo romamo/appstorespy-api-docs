@@ -1,0 +1,1799 @@
+{
+  "info": {
+    "name": "AppstoreSpy API",
+    "description": "Google Play and App Store market data.\n\nSet the `API_KEY` collection variable to the key from https://appstorespy.com/account before sending anything.\n\nGenerated from AppstoreSpy API at https://api.appstorespy.com/openapi.json.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "API-KEY",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{API_KEY}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.appstorespy.com/v1",
+      "type": "string"
+    },
+    {
+      "key": "API_KEY",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "App Store",
+      "item": [
+        {
+          "name": "Aggregate App Store developers by HQ country.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/aggregates/countries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "aggregates",
+                "countries"
+              ],
+              "query": [
+                {
+                  "key": "category_type",
+                  "value": "",
+                  "description": "Restrict to developers with this dominant category type",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Per-country totals over all App Store developers: developer count, published apps, and sums of monthly downloads/revenue estimates. The category_type split assigns each developer's totals to their dominant category type. Sorted by downloads descending."
+          },
+          "response": []
+        },
+        {
+          "name": "Search App Store apps by query.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/apps",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "apps"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "Twitter",
+                  "description": "Word or phrase for search.",
+                  "disabled": true
+                },
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "Country for specific country fields. Default - US.",
+                  "disabled": true
+                },
+                {
+                  "key": "fields",
+                  "value": "",
+                  "description": "Fields to return separated by comma(,)",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "-revenue",
+                  "description": "Sort params separated by comma(,)",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "description": "Count per page",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "description": "Page",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Free-text search across App Store listings, returning a ranked list of matching apps. To filter on structured criteria such as revenue, downloads or category, use `POST /ios/apps/query`."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Filter Search",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/apps/query",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "apps",
+                "query"
+              ],
+              "query": []
+            },
+            "description": "|**Fields**||||\n|---|---|---|---|\n|**Name**         |**Type**    |**Sort**|**Description**|\n|name             |string      |-   |Name|\n|bundle           |string      |-   |Bundle|\n|description_full |string      |-   |Full Description|\n|published        |boolean     |-   |Published|\n|listing_visible  |boolean     |-   |Published in request country|\n|category         |string      |-   |Сategory|\n|category_type    |string      |-   |Type|\n|revenue_month    |integer     |+   |Monthly Revenue|\n|revenue_lifetime |integer     |-   |Lifetime Revenue|\n|downloads_month  |integer     |+   |Monthly Downloads|\n|downloads_lifetime|integer    |-   |Lifetime Downloads|\n|update_date      |date ISO8601|+   |Last Updated|\n|release_date     |date ISO8601|+   |Release date|\n|developer_name   |string      |-   |Developer name|\n|description_short|string      |-   |Short description|\n|whatsnew         |string      |-   |Whatsnew|\n|icon             |string      |-   |Image|\n|video            |string      |-   |Trailer|\n|screenshots      |[]string    |-   |Screenshots|\n|removal_date     |date ISO8601|+   |Removal date|\n|version          |string      |-   |Version|\n|size             |float       |-   |Size|\n|rating_count     |integer     |+   |Ratings|\n|rating_value     |float       |+   |Rating in request country|\n|review_count     |integer     |+   |Reviews|\n|rating_avg       |float       |+   |Rating|\n|iap              |boolean     |-   |Inapp|\n|copyright        |string      |-   |Copyright|\n|seller           |string      |-   |Seller|\n|chart_info       |object      |+   |App's chart info: category, collection, country, position for today|\n\n\n|**Filters**|||\n|---|---|---|\n|**Name**|**Type**|**Description**|\n|name|string|Name|\n|published|boolean|Published|\n|category_type|string|APP or GAME|\n|revenue_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|downloads_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|update_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|release_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|rating_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|developer|string|Developer name|\n|developer_id|string|Developer id|\n|active_countries|[]string|[\"US\", \"DE\", \"FR\"] - List of countries where app is available (At least one country)|\n|category|string|App Store category: \"TRAVEL\", \"EDUCATION\", \"GAMES_STRATEGY\", \"LIFESTYLE\" etc|\n|review_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|rating_avg|ValueRange|{\"gte\": 3.5, \"lte\": 5.0}|\n|with_ads|boolean|With Ads|\n|advertised|boolean|Advertised|",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get similar App Store apps.",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/apps/similar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "apps",
+                "similar"
+              ],
+              "query": []
+            },
+            "description": "Returns the apps App Store lists as similar to the given app. Set `link` to the reverse direction to get the apps that list the given app as similar to them instead.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Summarise App Store apps matching a filter.",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/apps/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "apps",
+                "summary"
+              ],
+              "query": []
+            },
+            "description": "Returns aggregate totals for the set of App Store apps matching a structured filter, without returning the apps themselves. Takes the same filter body as `POST /ios/apps/query`.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get App Store app by ID.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/apps/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "apps",
+                ":id"
+              ],
+              "query": [
+                {
+                  "key": "fields",
+                  "value": "",
+                  "description": "Fields to return separated by comma(,)",
+                  "disabled": true
+                },
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "Country for which return data. By default: US.",
+                  "disabled": true
+                },
+                {
+                  "key": "language",
+                  "value": "",
+                  "description": "Language of meta data. By default: store default language.",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "333903271",
+                  "description": "App ID"
+                }
+              ]
+            },
+            "description": "Returns the full App Store listing for a single app, looked up by its numeric App Store id. Use `country` to select the storefront and `language` for the metadata language; `fields` limits the response to the columns you need."
+          },
+          "response": []
+        },
+        {
+          "name": "Queue a recrawl of an App Store app.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/apps/:id/recrawl",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "apps",
+                ":id",
+                "recrawl"
+              ],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "Country for which return data. By default: US.",
+                  "disabled": true
+                },
+                {
+                  "key": "language",
+                  "value": "",
+                  "description": "Language of meta data. By default: en_US",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "com.twitter.android",
+                  "description": "App ID(bundle)"
+                }
+              ]
+            },
+            "description": "Queues a fresh crawl of one App Store app for the given storefront and language. Returns 200 once the job is accepted; the updated data appears on the app endpoints after the crawl completes."
+          },
+          "response": []
+        },
+        {
+          "name": "Get App Store app reviews by app ID.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/apps/:id/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "apps",
+                ":id",
+                "reviews"
+              ],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "App storefront",
+                  "disabled": true
+                },
+                {
+                  "key": "fields",
+                  "value": "",
+                  "description": "Fields to return separated by comma(,)",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "description": "Count of reviews per page",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "rating,-date",
+                  "description": "Sort params separated by comma(,)",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "333903271",
+                  "description": "App ID"
+                }
+              ]
+            },
+            "description": "Returns user reviews for a single App Store app. Reviews are storefront-specific, so `country` changes which set is returned."
+          },
+          "response": []
+        },
+        {
+          "name": "Search App Store developers by query.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/developers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "developers"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "hq_country:US",
+                  "description": "Query for search",
+                  "disabled": true
+                },
+                {
+                  "key": "fields",
+                  "value": "",
+                  "description": "Fields to return separated by comma(,)",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "-total_apps,-installs",
+                  "description": "Sort params separated by comma(,)",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "description": "Count per page",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "description": "Page",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Free-text search across App Store developers using a `field:value` query such as `hq_country:US`. To filter on structured criteria, use `POST /ios/developers/query`."
+          },
+          "response": []
+        },
+        {
+          "name": "Search App Store developers by structured filter.",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/developers/query",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "developers",
+                "query"
+              ],
+              "query": []
+            },
+            "description": "Searches App Store developers by a structured JSON filter, with paging and sorting. `GET /ios/developers` covers the free-text equivalent.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get App Store developer by ID.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/developers/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "developers",
+                ":id"
+              ],
+              "query": [
+                {
+                  "key": "fields",
+                  "value": "",
+                  "description": "Fields to return separated by comma(,)",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1641486560",
+                  "description": "Developer ID"
+                }
+              ]
+            },
+            "description": "Returns the App Store developer record for a single developer id, including the developer's publisher identifiers and headquarters country."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Apps Estimates",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/developers/:id/estimates",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "developers",
+                ":id",
+                "estimates"
+              ],
+              "query": [
+                {
+                  "key": "start",
+                  "value": "",
+                  "description": "Start date. Format YYYY-MM-DD",
+                  "disabled": true
+                },
+                {
+                  "key": "end",
+                  "value": "",
+                  "description": "Start date. Format YYYY-MM-DD",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "296415947",
+                  "description": "Developer's ids to return separated by comma(,)"
+                }
+              ]
+            },
+            "description": "Get Google Play apps estimates"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Apps Estimates",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/estimates?id=333903271",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "estimates"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "333903271",
+                  "description": "Apps to return separated by comma(,)",
+                  "disabled": false
+                },
+                {
+                  "key": "start",
+                  "value": "",
+                  "description": "Start date. Format YYYY-MM-DD",
+                  "disabled": true
+                },
+                {
+                  "key": "end",
+                  "value": "",
+                  "description": "Start date. Format YYYY-MM-DD",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get App Store apps estimates"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Ios app available countries.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/info/countries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "info",
+                "countries"
+              ],
+              "query": []
+            },
+            "description": "This query returns the list of App Store storefronts available as a `country` parameter."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Ios app available languages.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/info/languages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "info",
+                "languages"
+              ],
+              "query": []
+            },
+            "description": "This query returns the list of metadata languages available as a `language` parameter."
+          },
+          "response": []
+        },
+        {
+          "name": "Get App Store rankings data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ios/rankings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ios",
+                "rankings"
+              ],
+              "query": [
+                {
+                  "key": "date_start",
+                  "value": "",
+                  "description": "Start date (YYYY-MM-DD)",
+                  "disabled": true
+                },
+                {
+                  "key": "date_end",
+                  "value": "",
+                  "description": "End date (YYYY-MM-DD)",
+                  "disabled": true
+                },
+                {
+                  "key": "app",
+                  "value": "",
+                  "description": "App IDs (comma-separated)",
+                  "disabled": true
+                },
+                {
+                  "key": "platform",
+                  "value": "",
+                  "description": "Platforms (iPhone/iPad, comma-separated)",
+                  "disabled": true
+                },
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "Country codes (comma-separated)",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": "",
+                  "description": "App categories (comma-separated)",
+                  "disabled": true
+                },
+                {
+                  "key": "collection",
+                  "value": "",
+                  "description": "Collection types (comma-separated)",
+                  "disabled": true
+                },
+                {
+                  "key": "rank_start",
+                  "value": "",
+                  "description": "Minimum rank",
+                  "disabled": true
+                },
+                {
+                  "key": "rank_end",
+                  "value": "",
+                  "description": "Maximum rank",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "description": "Count per page",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "description": "Page",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Returns App Store chart positions over a date range, filtered by storefront, category, collection and platform. One row per app per chart per day."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "Get Google Play LiveOps events for an app.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/liveops?app=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "liveops"
+              ],
+              "query": [
+                {
+                  "key": "app",
+                  "value": "",
+                  "description": "",
+                  "disabled": false
+                },
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "freshness",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Returns the LiveOps events (sales, tournaments, updates, new content) Google Play shows for one app in one country. Responds 202 while a fresh crawl is in progress."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Google Play",
+      "item": [
+        {
+          "name": "Aggregate Google Play developers by HQ country.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/aggregates/countries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "aggregates",
+                "countries"
+              ],
+              "query": [
+                {
+                  "key": "category_type",
+                  "value": "",
+                  "description": "Restrict to developers with this dominant category type",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Per-country totals over all Google Play developers: developer count, published apps, and sums of monthly downloads/revenue estimates. The category_type split assigns each developer's totals to their dominant category type. Sorted by downloads descending."
+          },
+          "response": []
+        },
+        {
+          "name": "Search Google Play apps by query.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/apps",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "apps"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "X",
+                  "description": "Word or phrase for search.",
+                  "disabled": true
+                },
+                {
+                  "key": "published",
+                  "value": "",
+                  "description": "Empty for all.",
+                  "disabled": true
+                },
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "Country for specific country fields. Default - US.",
+                  "disabled": true
+                },
+                {
+                  "key": "language",
+                  "value": "",
+                  "description": "Language of meta data. By default: store default language.",
+                  "disabled": true
+                },
+                {
+                  "key": "fields",
+                  "value": "",
+                  "description": "Fields to return separated by comma(,)",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "-installs_exact,-revenue",
+                  "description": "Sort params separated by comma(,)",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "description": "Count per page",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "description": "Page",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Free-text search across Google Play listings, returning a ranked list of matching apps. To filter on structured criteria such as revenue, installs or category, use `POST /play/apps/query`."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Filter Search",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/apps/query",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "apps",
+                "query"
+              ],
+              "query": []
+            },
+            "description": "|**Fields**||||\n|---|---|---|---|\n|**Name**         |**Type**    |**Sort**|**Description**|\n|name             |string      |-   |Name|\n|bundle           |string      |-   |Bundle|\n|description_full |string      |-   |Description|\n|published        |boolean     |-   |Published|\n|listing_visible  |boolean     |-   |Published in request country|\n|category         |string      |-   |Category|\n|category_type    |string      |-   |Type|\n|revenue_month    |integer     |+   |Monthly Revenue|\n|revenue_lifetime |integer     |-   |Lifetime Revenue|\n|downloads_month  |integer     |+   |Monthly Downloads|\n|downloads_lifetime|integer    |-   |Lifetime Downloads|\n|update_date      |date ISO8601|+   |Last Updated|\n|release_date     |date ISO8601|+   |Release date|\n|developer_name   |string      |-   |Developer name|\n|description_short|string      |-   |Short description|\n|whatsnew         |string      |-   |Whatsnew|\n|icon             |string      |-   |Image|\n|video            |string      |-   |Trailer|\n|screenshots      |[]string    |-   |Screenshots|\n|feature_graphic  |string      |-   |Feature graphic|\n|removal_date     |date ISO8601|+   |Removal date|\n|version          |string      |-   |Version|\n|size             |float       |-   |Size|\n|downloads_daily  |integer     |+   |Daily Installs|\n|downloads_exact  |integer     |+   |Total Installs|\n|downloads_mark   |integer     |+   |Installs|\n|rating_count     |integer     |+   |Ratings|\n|rating_value     |float       |+   |Rating in request country|\n|review_count     |integer     |+   |Reviews|\n|rating_avg       |float       |+   |Rating|\n|iap              |boolean     |-   |Inapp|\n|editorial        |boolean     |-   |Editor's choise|\n|hosts            |[]string    |-   |Hosts|\n|chart_info       |object      |+   |App's chart info: category, collection, country, position for today|\n\n\n|**Filters**|||\n|---|---|---|\n|**Name**|**Type**|**Description**|\n|name|string|Name|\n|published|boolean|Published|\n|category_type|string|APP or GAME|\n|revenue_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|downloads_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|update_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|release_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|rating_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|developer|string|Developer name|\n|developer_id|string|Developer id|\n|editorial|boolean|Editor's choise|\n|iap|boolean|Inapp|\n|active_countries|[]string|[\"US\", \"DE\", \"FR\"] - List of countries where app is available (At least one country)|\n|category|string|Google Play category: \"GAME_ARCADE\", \"SOCIAL\", \"ART_AND_DESIGN\", \"LIFESTYLE\" etc|\n|downloads_mark|integer|100, 500, 1000, 5000, 10000 etc|\n|downloads_daily|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|downloads_exact|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|review_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|similar_apps|string|\"com.twitter.android\" - Twitter similar apps|\n|reverse_similar_apps|string|\"com.twitter.android\" - Apps with Twitter in similar's list|\n|rating_avg|ValueRange|{\"gte\": 3.5, \"lte\": 5.0}|\n|hosts|string||\n|with_ads|boolean|With Ads|\n|advertised|boolean|Advertised|",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get similar Google Play apps.",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/apps/similar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "apps",
+                "similar"
+              ],
+              "query": []
+            },
+            "description": "Returns the apps Google Play lists as similar to the given app. Set `link` to the reverse direction to get the apps that list the given app as similar to them instead.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Summarise Google Play apps matching a filter.",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/apps/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "apps",
+                "summary"
+              ],
+              "query": []
+            },
+            "description": "Returns aggregate totals for the set of Google Play apps matching a structured filter, without returning the apps themselves. Takes the same filter body as `POST /play/apps/query`.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Google Play app by ID.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/apps/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "apps",
+                ":id"
+              ],
+              "query": [
+                {
+                  "key": "fields",
+                  "value": "",
+                  "description": "Fields to return separated by comma(,)",
+                  "disabled": true
+                },
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "Country for which return data. By default: US.",
+                  "disabled": true
+                },
+                {
+                  "key": "language",
+                  "value": "",
+                  "description": "Language of meta data. By default: store default language.",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "com.twitter.android",
+                  "description": "App ID(bundle)"
+                }
+              ]
+            },
+            "description": "Returns the full Google Play listing for a single app, looked up by its bundle id. Use `country` to select the storefront and `language` for the metadata language; `fields` limits the response to the columns you need."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Apps Installs Daily",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/apps/:id/installs_daily",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "apps",
+                ":id",
+                "installs_daily"
+              ],
+              "query": [
+                {
+                  "key": "start",
+                  "value": "",
+                  "description": "Start date. Format YYYY-MM-DD",
+                  "disabled": true
+                },
+                {
+                  "key": "end",
+                  "value": "",
+                  "description": "Start date. Format YYYY-MM-DD",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "com.twitter.android",
+                  "description": "Apps to return separated by comma(,)"
+                }
+              ]
+            },
+            "description": "Get Google Play apps daily installs.\n\n`ipd` is derived from the cumulative install total: each increase is spread evenly across the elapsed days since the total last changed, so collection gaps and lagging reports are amortised rather than reported as a single-day spike. Values are raw and never negative.\n\nNote: these are unsmoothed figures. AppstoreSpy's own charts additionally apply a moving average for readability, so a given day's value may differ from what the UI plots. This endpoint is the underlying data."
+          },
+          "response": []
+        },
+        {
+          "name": "Queue a recrawl of a Google Play app.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/apps/:id/recrawl",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "apps",
+                ":id",
+                "recrawl"
+              ],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "Country for which return data. By default: US.",
+                  "disabled": true
+                },
+                {
+                  "key": "language",
+                  "value": "",
+                  "description": "Language of meta data. By default: en_US",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "com.twitter.android",
+                  "description": "App ID(bundle)"
+                }
+              ]
+            },
+            "description": "Queues a fresh crawl of one Google Play app for the given country and language. Returns 200 once the job is accepted; the updated data appears on the app endpoints after the crawl completes."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Google Play app reviews by app ID.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/apps/:id/reviews?language=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "apps",
+                ":id",
+                "reviews"
+              ],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "language",
+                  "value": "",
+                  "description": "Review language",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "description": "Count of reviews per page",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "stars,-likes",
+                  "description": "Sort params separated by comma(,)",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "com.twitter.android",
+                  "description": "App ID(bundle)"
+                }
+              ]
+            },
+            "description": "Returns user reviews for a single Google Play app. Reviews are country- and language-specific, so `country` and `language` change which set is returned."
+          },
+          "response": []
+        },
+        {
+          "name": "Search Google Play developers by query.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/developers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "developers"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "hq_country:US",
+                  "description": "Query for search",
+                  "disabled": true
+                },
+                {
+                  "key": "fields",
+                  "value": "",
+                  "description": "Fields to return separated by comma(,)",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "-total_apps,-installs",
+                  "description": "Sort params separated by comma(,)",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "description": "Count per page",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "description": "Page",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Free-text search across Google Play developers using a `field:value` query such as `hq_country:US`. To filter on structured criteria, use `POST /play/developers/query`."
+          },
+          "response": []
+        },
+        {
+          "name": "Search Google Play developers by structured filter.",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/developers/query",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "developers",
+                "query"
+              ],
+              "query": []
+            },
+            "description": "Searches Google Play developers by a structured JSON filter, with paging and sorting. `GET /play/developers` covers the free-text equivalent.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Google Play developer by ID.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/developers/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "developers",
+                ":id"
+              ],
+              "query": [
+                {
+                  "key": "fields",
+                  "value": "",
+                  "description": "Fields to return separated by comma(,)",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "6891936352065498609",
+                  "description": "Developer ID"
+                }
+              ]
+            },
+            "description": "Returns the Google Play developer record for a single developer id, including the developer's publisher identifiers and headquarters country."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Apps Estimates",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/developers/:id/estimates",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "developers",
+                ":id",
+                "estimates"
+              ],
+              "query": [
+                {
+                  "key": "start",
+                  "value": "",
+                  "description": "Start date. Format YYYY-MM-DD",
+                  "disabled": true
+                },
+                {
+                  "key": "end",
+                  "value": "",
+                  "description": "Start date. Format YYYY-MM-DD",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "7022973042396704692",
+                  "description": "Developer's id"
+                }
+              ]
+            },
+            "description": "Get Google Play apps estimates"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Apps Estimates",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/estimates?id=com.twitter.android",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "estimates"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "com.twitter.android",
+                  "description": "Apps to return separated by comma(,)",
+                  "disabled": false
+                },
+                {
+                  "key": "start",
+                  "value": "",
+                  "description": "Start date. Format YYYY-MM-DD",
+                  "disabled": true
+                },
+                {
+                  "key": "end",
+                  "value": "",
+                  "description": "Start date. Format YYYY-MM-DD",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get Google Play apps estimates"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Google Play app available countries.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/info/countries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "info",
+                "countries"
+              ],
+              "query": []
+            },
+            "description": "This query returns the list of Google Play app available countries."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Google Play app available languages.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/info/languages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "info",
+                "languages"
+              ],
+              "query": []
+            },
+            "description": "This query returns the list of Google Play app available languages."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Google Play rankings data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/rankings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "rankings"
+              ],
+              "query": [
+                {
+                  "key": "date_start",
+                  "value": "",
+                  "description": "Start date (YYYY-MM-DD)",
+                  "disabled": true
+                },
+                {
+                  "key": "date_end",
+                  "value": "",
+                  "description": "End date (YYYY-MM-DD)",
+                  "disabled": true
+                },
+                {
+                  "key": "app",
+                  "value": "",
+                  "description": "App IDs (comma-separated)",
+                  "disabled": true
+                },
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "Country codes (comma-separated)",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": "",
+                  "description": "App categories (comma-separated)",
+                  "disabled": true
+                },
+                {
+                  "key": "collection",
+                  "value": "",
+                  "description": "Collection types (comma-separated)",
+                  "disabled": true
+                },
+                {
+                  "key": "rank_start",
+                  "value": "",
+                  "description": "Minimum rank",
+                  "disabled": true
+                },
+                {
+                  "key": "rank_end",
+                  "value": "",
+                  "description": "Maximum rank",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "description": "Count per page",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "description": "Page",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Returns Google Play chart positions over a date range, filtered by country, category and collection. One row per app per chart per day."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Jobs",
+      "item": [
+        {
+          "name": "List keyword crawl jobs.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/jobs/search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "jobs",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "store",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "term",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "id_user",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search_id",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "updated_gte",
+                  "value": "2020-01-01T00:00:00+00:00",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "updated_lte",
+                  "value": "2022-01-01T00:00:00+00:00",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Lists the keyword crawl jobs you have submitted, filtered by store, term, country or last-updated window. Each result carries the job's current state and, once finished, its results."
+          },
+          "response": []
+        },
+        {
+          "name": "Create a keyword crawl job.",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/jobs/search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "jobs",
+                "search"
+              ],
+              "query": []
+            },
+            "description": "Submits a keyword crawl job for one search term in one store and country. Returns the created job immediately; poll `GET /jobs/search` with the returned id to collect the results.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Suggestions",
+      "item": [
+        {
+          "name": "Get Google Play keyword suggestions.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/suggestions?q=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "suggestions"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "",
+                  "description": "",
+                  "disabled": false
+                },
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "freshness",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Returns Google Play search autocomplete suggestions for a term in one country and language. Responds 202 with a partial result while a fresh crawl is in progress; `freshness` sets how old a cached result may be before it is recrawled."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
