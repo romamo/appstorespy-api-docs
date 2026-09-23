@@ -82,6 +82,7 @@ read-only tools over both stores. See [examples/mcp.json](examples/mcp.json).
 - [`examples/`](examples) — a curl walkthrough, a Python quickstart, an MCP client config
 - [`postman/`](postman) — a collection covering all 37 operations, generated from the live contract
 - [`spectral/`](spectral) — the ruleset the contract is linted against
+- [`tools/`](tools) — regenerates the collection from the live contract: `python tools/generate_postman.py`
 
 ## Support
 
