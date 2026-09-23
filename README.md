@@ -51,6 +51,21 @@ A few names are Google Play only on the GET surface: `installs`, `installs_exact
 - `downloads_mark` is the install bracket Google Play displays (100, 500, 1000, …);
   `downloads_exact` is a reported number.
 
+## Daily installs and the website chart
+
+`GET /play/apps/{id}/installs_daily` returns `ipd`, a per-day figure derived from the
+cumulative install total: each increase is spread evenly over the days since the total
+last changed, so a collection gap becomes a plateau rather than a one-day spike.
+
+Those are raw values. The Daily Installs chart on the website smooths them for
+readability, so a given day will not match. Pass `smooth=true` to get the chart's series
+instead: a centered, triangular-weighted 9-day moving average, weights 1,2,3,4,5,4,3,2,1,
+renormalised over the days that have data. The API pads the window with days either side
+of `start`/`end`, while the chart smooths only the 30 days it draws, so the first and last
+days of a range can still differ slightly.
+
+`start` defaults to the 30 days ending at `end`, and `end` defaults to the newest data.
+
 ## Sorting and paging
 
 `sort` takes a comma-separated list, with a leading `-` for descending:

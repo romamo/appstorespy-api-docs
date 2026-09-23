@@ -1135,13 +1135,19 @@
                 {
                   "key": "start",
                   "value": "",
-                  "description": "Start date. Format YYYY-MM-DD",
+                  "description": "Start date. Format YYYY-MM-DD. Defaults to the 30 days ending at `end`",
                   "disabled": true
                 },
                 {
                   "key": "end",
                   "value": "",
-                  "description": "Start date. Format YYYY-MM-DD",
+                  "description": "End date. Format YYYY-MM-DD",
+                  "disabled": true
+                },
+                {
+                  "key": "smooth",
+                  "value": "",
+                  "description": "Return `ipd` smoothed as on the website chart",
                   "disabled": true
                 }
               ],
@@ -1153,7 +1159,7 @@
                 }
               ]
             },
-            "description": "Get Google Play apps daily installs.\n\n`ipd` is derived from the cumulative install total: each increase is spread evenly across the elapsed days since the total last changed, so collection gaps and lagging reports are amortised rather than reported as a single-day spike. Values are raw and never negative.\n\nNote: these are unsmoothed figures. AppstoreSpy's own charts additionally apply a moving average for readability, so a given day's value may differ from what the UI plots. This endpoint is the underlying data."
+            "description": "Get Google Play apps daily installs.\n\n`ipd` is derived from the cumulative install total: each increase is spread evenly across the elapsed days since the total last changed, so collection gaps and lagging reports are amortised rather than reported as a single-day spike. Values are raw and never negative.\n\nBy default these are unsmoothed figures. AppstoreSpy's Daily Installs chart additionally applies a moving average for readability. Pass `smooth=true` to get that series: a centered, triangular-weighted 9-day moving average of `ipd` (weights 1,2,3,4,5,4,3,2,1; days without data are skipped and the weights renormalised). Neighbouring days outside `start`/`end` are included in the window, so the first and last days are smoothed the same way as the rest."
           },
           "response": []
         },
