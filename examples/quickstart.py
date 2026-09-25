@@ -51,6 +51,20 @@ def top_by_revenue(store: str, app_filter: dict, limit: int = 5) -> list:
     return r.json()["data"]
 
 
+def listing(app_id: str, country: str, language: str, attempts: int = 6) -> dict:
+    """The store listing in any Google Play Console locale, crawled on demand.
+
+    A 202 means the crawl is still running; the same request answers 200 once it is
+    done. Each call waits up to about 30 seconds first, so a few attempts are plenty.
+    """
+    for _ in range(attempts):
+        r = client.get(f"/play/apps/{app_id}/listing", params={"country": country, "language": language})
+        r.raise_for_status()
+        if r.status_code == 200:
+            return r.json()
+    raise TimeoutError(f"listing {app_id} {country}/{language} is still being crawled")
+
+
 def rankings(store: str, country: str, collection: str, limit: int = 5) -> tuple:
     """List endpoints return the full result count in the `total-count` header."""
     r = client.get(f"/{store}/rankings", params={"country": country, "collection": collection, "limit": limit})
@@ -66,6 +80,9 @@ if __name__ == "__main__":
 
     for app in top_by_revenue("play", social):
         print(f"{app['name']:40} {app.get('revenue_month', 0):>12,}")
+
+    indonesian = listing("com.twitter.android", "ID", "id")
+    print(indonesian["name"], "-", indonesian["short"], "(machine translated)" if indonesian["translated"] else "")
 
     charts, total = rankings("play", "US", "topselling_free")
     print(f"{total} chart rows available")

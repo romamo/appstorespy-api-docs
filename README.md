@@ -66,6 +66,26 @@ days of a range can still differ slightly.
 
 `start` defaults to the 30 days ending at `end`, and `end` defaults to the newest data.
 
+## Listings in any language
+
+`GET /{store}/apps/{id}` serves the languages AppstoreSpy stores. For the exact store
+listing in any other language, `GET /play/apps/{id}/listing?country=ID&language=id`
+crawls Google Play on demand and returns the listing as Google Play serves it: title,
+short and full description, what's new, icon, feature graphic, trailer and screenshots
+in Google's order. `language` takes any Google Play Console locale (`id`, `th`, `hi_IN`,
+`ur`, `fa`, `ms`, `pt_PT`, `es_ES`, `uk`, …).
+
+`translated` is `true` when Google Play is showing a machine translation because the
+developer has not supplied that language; `translated_from` then names the source
+language the way Google Play spells it in the requested language.
+
+The listing is kept once crawled. `freshness` (`1d`, `7d`, `30d`, default `1d`) says how
+old a kept listing may be before it is crawled again. A call waits for a running crawl for
+up to about 30 seconds, then answers `202` with the crawl state; repeat the same request to
+get the listing. `wait=false` returns the `202` at once. A call that queues a crawl costs
+the crawl price; a call served from a kept listing costs the read price; a `202` for a crawl
+someone else queued costs nothing. The `X-Cost` response header carries what was charged.
+
 ## Sorting and paging
 
 `sort` takes a comma-separated list, with a leading `-` for descending:
@@ -74,13 +94,13 @@ carry the full result count in the `total-count` response header.
 
 ## Agents
 
-The API is also an MCP server at `https://api.appstorespy.com/mcp`, exposing 13
+The API is also an MCP server at `https://api.appstorespy.com/mcp`, exposing 14
 read-only tools over both stores. See [examples/mcp.json](examples/mcp.json).
 
 ## What is here
 
 - [`examples/`](examples) — a curl walkthrough, a Python quickstart, an MCP client config
-- [`postman/`](postman) — a collection covering all 37 operations, generated from the live contract
+- [`postman/`](postman) — a collection covering all 38 operations, generated from the live contract
 - [`spectral/`](spectral) — the ruleset the contract is linted against
 - [`tools/`](tools) — regenerates the collection from the live contract: `python tools/generate_postman.py`
 

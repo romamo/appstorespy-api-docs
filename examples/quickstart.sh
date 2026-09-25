@@ -31,6 +31,10 @@ curl -s "${auth[@]}" -H 'content-type: application/json' \
   -d '{"id": "com.twitter.android", "link": "from", "filter": {}, "limit": 5}'
 echo
 
+echo '# The exact Indonesian listing, crawled on demand (202 while the crawl runs: repeat the call)'
+curl -s "${auth[@]}" "${BASE}/play/apps/com.twitter.android/listing?country=ID&language=id"
+echo
+
 echo '# Today'"'"'s US top free chart, and the total in a response header'
 curl -s -D- -o /dev/null "${auth[@]}" \
   "${BASE}/play/rankings?country=US&collection=topselling_free&limit=5" | grep -i total-count
