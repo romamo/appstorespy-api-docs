@@ -1164,6 +1164,65 @@
           "response": []
         },
         {
+          "name": "Get the Google Play listing of an app in any language.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/play/apps/:id/listing",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "play",
+                "apps",
+                ":id",
+                "listing"
+              ],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "Country of the listing (Google Play `gl`). By default: US.",
+                  "disabled": true
+                },
+                {
+                  "key": "language",
+                  "value": "",
+                  "description": "Language of the listing (Google Play `hl`), any Google Play Console locale. By default: en_US.",
+                  "disabled": true
+                },
+                {
+                  "key": "freshness",
+                  "value": "",
+                  "description": "How old a kept listing may be before it is crawled again.",
+                  "disabled": true
+                },
+                {
+                  "key": "wait",
+                  "value": "",
+                  "description": "Wait for a running crawl, or answer 202 right away.",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "com.twitter.android",
+                  "description": "App ID(bundle)"
+                }
+              ]
+            },
+            "description": "Returns the store listing of one app for a country and language exactly as Google Play serves it: title, short and full description, what's new, icon, feature graphic, trailer and screenshots. Any language Google Play Console accepts can be requested. The listing is crawled on demand and kept; `freshness` sets how old a kept listing may be before it is crawled again. A call waits for a running crawl for up to about 30 seconds and answers 202 with the crawl state if it is still running; repeat the same request to get the listing. Pass `wait=false` to get the 202 immediately. Repeated requests for the same listing share one crawl. `translated` tells whether Google Play machine-translated the texts instead of showing a translation the developer supplied. A call that queues a crawl costs the crawl price; a call served from a kept listing, including a kept not-found, costs the read price; a 202 and a failed crawl cost nothing."
+          },
+          "response": []
+        },
+        {
           "name": "Queue a recrawl of a Google Play app.",
           "request": {
             "method": "GET",
