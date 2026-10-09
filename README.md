@@ -94,8 +94,15 @@ carry the full result count in the `total-count` response header.
 
 ## Agents
 
-The API is also an MCP server at `https://api.appstorespy.com/mcp`, exposing 14
-read-only tools over both stores. See [examples/mcp.json](examples/mcp.json).
+The API is also an MCP server at `https://api.appstorespy.com/mcp`, exposing
+read-only tools over both stores (listed by `tools/list`). Tool calls take the same
+API key and cost the same credits as the endpoint each one wraps. See
+[examples/mcp.json](examples/mcp.json).
+
+- [MCP server](https://api.appstorespy.com/mcp): Streamable HTTP endpoint
+- [Agentic access](https://api.appstorespy.com/agentic-access): what each operation costs and whether it reads, queues or writes
+- [Agent skills](https://api.appstorespy.com/skills/): one SKILL.md per capability
+- [llms.txt](https://api.appstorespy.com/llms.txt): an index of every agent document
 
 ## What is here
 
