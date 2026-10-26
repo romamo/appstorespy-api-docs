@@ -16,16 +16,43 @@ examples, a Postman collection, and the ruleset the contract is linted against.
 | Changelog | [/changelog](https://api.appstorespy.com/changelog) |
 | Status | [/status](https://api.appstorespy.com/status) |
 | Deprecation policy | [/deprecation-policy](https://api.appstorespy.com/deprecation-policy) |
-| Keys | [appstorespy.com/account](https://appstorespy.com/account) |
+| Keys | [appstorespy.com/profile/api](https://appstorespy.com/profile/api) |
 
 ## Authentication
 
-Every call carries your key in the `API-KEY` header.
+Every call carries your key in the `API-KEY` header. The MCP server takes the same key, in `API-KEY` or as `Authorization: Bearer <key>`.
 
 ```bash
 curl -H 'API-KEY: YOUR_KEY' \
      'https://api.appstorespy.com/v1/play/apps/com.twitter.android?fields=name,downloads'
 ```
+
+### Your keys
+
+Create, rename and revoke keys at [appstorespy.com/profile/api](https://appstorespy.com/profile/api).
+
+- A key looks like `asp_live_` followed by 36 letters and digits. The page lists keys by that prefix and the first 8 characters after it; the full key is shown once, when you create it, so copy it then
+- Older keys are 40 lowercase hex characters. The ones listed on the page as "Default key" keep working; an older key that is not listed there will stop working, so create a new key in its place
+- You can hold up to 10 active keys, one per integration, so a key can be revoked without touching the others
+- A key never expires unless you pick an expiry when creating it (30 days, 90 days or 1 year); an expiry cannot be extended later
+- Revoking takes effect on the next call and cannot be undone
+- The page shows when each key was last used, to the minute
+
+### Rotating a key without downtime
+
+1. Create a new key
+2. Deploy it to your integration
+3. Revoke the old key once the new one shows a recent "last used"
+
+### When a key is refused
+
+| Answer | Meaning |
+|---|---|
+| `401 Malformed API key.` | The value is not a well-formed key: usually a copy-paste error, a missing or extra character |
+| `401 Wrong key` | No active key matches: unknown, revoked or expired |
+| `401 Not authenticated` | The `API-KEY` header is missing |
+| `402` | The credit balance does not cover the call, or the paid subscription is not active: the body says which |
+| `403` | The endpoint is not in your plan; the body names the plan it needs |
 
 ## The one thing that catches people out
 
