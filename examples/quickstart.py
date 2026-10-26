@@ -1,7 +1,7 @@
 """AppstoreSpy API quickstart.
 
     pip install httpx
-    export API_KEY=...       # https://appstorespy.com/account
+    export API_KEY=...       # https://appstorespy.com/profile/api
     python quickstart.py
 """
 

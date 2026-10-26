@@ -31,7 +31,7 @@ def build(spec: dict) -> dict:
             "description": (
                 "Google Play and App Store market data.\n\n"
                 "Set the `API_KEY` collection variable to the key from "
-                "https://appstorespy.com/account before sending anything.\n\n"
+                "https://appstorespy.com/profile/api before sending anything.\n\n"
                 f"Generated from AppstoreSpy API at {SPEC}."
             ),
             "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # A walk through the API with curl. Set your key first:
-#   export API_KEY=...            # from https://appstorespy.com/account
+#   export API_KEY=...            # from https://appstorespy.com/profile/api
 set -euo pipefail
 
-: "${API_KEY:?set API_KEY first, from https://appstorespy.com/account}"
+: "${API_KEY:?set API_KEY first, from https://appstorespy.com/profile/api}"
 BASE=https://api.appstorespy.com/v1
 auth=(-H "API-KEY: ${API_KEY}" -H 'accept: application/json')
 
