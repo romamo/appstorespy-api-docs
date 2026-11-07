@@ -161,7 +161,7 @@
               ],
               "query": []
             },
-            "description": "|**Fields**||||\n|---|---|---|---|\n|**Name**         |**Type**    |**Sort**|**Description**|\n|name             |string      |-   |Name|\n|bundle           |string      |-   |Bundle|\n|description_full |string      |-   |Full Description|\n|published        |boolean     |-   |Published|\n|listing_visible  |boolean     |-   |Published in request country|\n|category         |string      |-   |Сategory|\n|category_type    |string      |-   |Type|\n|revenue_month    |integer     |+   |Monthly Revenue|\n|revenue_lifetime |integer     |-   |Lifetime Revenue|\n|downloads_month  |integer     |+   |Monthly Downloads|\n|downloads_lifetime|integer    |-   |Lifetime Downloads|\n|update_date      |date ISO8601|+   |Last Updated|\n|release_date     |date ISO8601|+   |Release date|\n|developer_name   |string      |-   |Developer name|\n|description_short|string      |-   |Short description|\n|whatsnew         |string      |-   |Whatsnew|\n|icon             |string      |-   |Image|\n|video            |string      |-   |Trailer|\n|screenshots      |[]string    |-   |Screenshots|\n|removal_date     |date ISO8601|+   |Removal date|\n|version          |string      |-   |Version|\n|size             |float       |-   |Size|\n|rating_count     |integer     |+   |Ratings|\n|rating_value     |float       |+   |Rating in request country|\n|review_count     |integer     |+   |Reviews|\n|rating_avg       |float       |+   |Rating|\n|iap              |boolean     |-   |Inapp|\n|copyright        |string      |-   |Copyright|\n|seller           |string      |-   |Seller|\n|chart_info       |object      |+   |App's chart info: category, collection, country, position for today|\n\n\n|**Filters**|||\n|---|---|---|\n|**Name**|**Type**|**Description**|\n|name|string|Name|\n|published|boolean|Published|\n|category_type|string|APP or GAME|\n|revenue_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|downloads_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|update_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|release_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|rating_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|developer|string|Developer name|\n|developer_id|string|Developer id|\n|active_countries|[]string|[\"US\", \"DE\", \"FR\"] - List of countries where app is available (At least one country)|\n|category|string|App Store category: \"TRAVEL\", \"EDUCATION\", \"GAMES_STRATEGY\", \"LIFESTYLE\" etc|\n|review_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|rating_avg|ValueRange|{\"gte\": 3.5, \"lte\": 5.0}|\n|with_ads|boolean|With Ads|\n|advertised|boolean|Advertised|",
+            "description": "|**Fields**||||\n|---|---|---|---|\n|**Name**         |**Type**    |**Sort**|**Description**|\n|name             |string      |-   |Name|\n|bundle           |string      |-   |Bundle|\n|description_full |string      |-   |Full Description|\n|published        |boolean     |-   |Published|\n|listing_visible  |boolean     |-   |Published in request country|\n|category         |string      |-   |Сategory|\n|category_type    |string      |-   |Type|\n|revenue_month    |integer     |+   |Monthly Revenue|\n|revenue_lifetime |integer     |-   |Lifetime Revenue|\n|downloads_month  |integer     |+   |Monthly Downloads|\n|downloads_lifetime|integer    |-   |Lifetime Downloads|\n|update_date      |date ISO8601|+   |Last Updated|\n|release_date     |date ISO8601|+   |Release date|\n|developer_name   |string      |-   |Developer name|\n|description_short|string      |-   |Short description|\n|whatsnew         |string      |-   |Whatsnew|\n|icon             |string      |-   |Image|\n|video            |string      |-   |Trailer|\n|screenshots      |[]string    |-   |Screenshots|\n|screenshots_duo_inner|[]string|-   |iPhone Duo inner display screenshots|\n|screenshots_duo_outer|[]string|-   |iPhone Duo outer display screenshots|\n|removal_date     |date ISO8601|+   |Removal date|\n|version          |string      |-   |Version|\n|size             |float       |-   |Size|\n|rating_count     |integer     |+   |Ratings|\n|rating_value     |float       |+   |Rating in request country|\n|review_count     |integer     |+   |Reviews|\n|rating_avg       |float       |+   |Rating|\n|iap              |boolean     |-   |Inapp|\n|copyright        |string      |-   |Copyright|\n|seller           |string      |-   |Seller|\n|chart_info       |object      |+   |App's chart info: category, collection, country, position for today|\n\n\n|**Filters**|||\n|---|---|---|\n|**Name**|**Type**|**Description**|\n|name|string|Name|\n|published|boolean|Published|\n|category_type|string|APP or GAME|\n|revenue_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|downloads_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|update_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|release_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|rating_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|developer|string|Developer name|\n|developer_id|string|Developer id|\n|active_countries|[]string|[\"US\", \"DE\", \"FR\"] - List of countries where app is available (At least one country)|\n|category|string|App Store category: \"TRAVEL\", \"EDUCATION\", \"GAMES_STRATEGY\", \"LIFESTYLE\" etc|\n|review_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|rating_avg|ValueRange|{\"gte\": 3.5, \"lte\": 5.0}|\n|with_ads|boolean|With Ads|\n|advertised|boolean|Advertised|",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"filter\": {}\n}",
@@ -296,7 +296,7 @@
                 {
                   "key": "id",
                   "value": "333903271",
-                  "description": "App ID"
+                  "description": "App Store app id: the numeric id (447188370) or the id as the store shows it (id447188370). A store link cannot be passed in the path; pass the id from it"
                 }
               ]
             },
@@ -342,8 +342,8 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "com.twitter.android",
-                  "description": "App ID(bundle)"
+                  "value": "333903271",
+                  "description": "App Store app id: the numeric id (447188370) or the id as the store shows it (id447188370). A store link cannot be passed in the path; pass the id from it"
                 }
               ]
             },
@@ -402,7 +402,7 @@
                 {
                   "key": "id",
                   "value": "333903271",
-                  "description": "App ID"
+                  "description": "App Store app id: the numeric id (447188370) or the id as the store shows it (id447188370). A store link cannot be passed in the path; pass the id from it"
                 }
               ]
             },
@@ -578,6 +578,12 @@
                   "value": "",
                   "description": "Start date. Format YYYY-MM-DD",
                   "disabled": true
+                },
+                {
+                  "key": "fill_gaps",
+                  "value": "",
+                  "description": "Return every month from the developer's earliest to its latest month with estimates within start..end, newest first: a month without estimates appears with downloads and revenue null, so a gap is not read as a zero. Off by default, which leaves such months out.",
+                  "disabled": true
                 }
               ],
               "variable": [
@@ -615,7 +621,7 @@
                 {
                   "key": "id",
                   "value": "333903271",
-                  "description": "Apps to return separated by comma(,)",
+                  "description": "App Store app ids separated by comma(,). Each id is the numeric id (447188370), the id as the store shows it (id447188370) or an App Store link (https://apps.apple.com/us/app/name/id447188370, URL-encoded); whitespace around an id is ignored, and an empty or unrecognised id answers 422",
                   "disabled": false
                 },
                 {
@@ -1102,7 +1108,7 @@
                 {
                   "key": "id",
                   "value": "com.twitter.android",
-                  "description": "App ID(bundle)"
+                  "description": "Google Play bundle id, e.g. com.example.app. A store link cannot be passed in the path; pass the `id` value from it"
                 }
               ]
             },
@@ -1155,7 +1161,7 @@
                 {
                   "key": "id",
                   "value": "com.twitter.android",
-                  "description": "Apps to return separated by comma(,)"
+                  "description": "Google Play bundle ids separated by comma(,), e.g. com.example.app. A store link cannot be passed in the path; pass the `id` value from it. An unrecognised id answers 422"
                 }
               ]
             },
@@ -1214,11 +1220,11 @@
                 {
                   "key": "id",
                   "value": "com.twitter.android",
-                  "description": "App ID(bundle)"
+                  "description": "Google Play bundle id, e.g. com.example.app. A store link cannot be passed in the path; pass the `id` value from it"
                 }
               ]
             },
-            "description": "Returns the store listing of one app for a country and language exactly as Google Play serves it: title, short and full description, what's new, icon, feature graphic, trailer and screenshots. Any language Google Play Console accepts can be requested. The listing is crawled on demand and kept; `freshness` sets how old a kept listing may be before it is crawled again. A call waits for a running crawl for up to about 30 seconds and answers 202 with the crawl state if it is still running; repeat the same request to get the listing. Pass `wait=false` to get the 202 immediately. Repeated requests for the same listing share one crawl. `translated` tells whether Google Play machine-translated the texts instead of showing a translation the developer supplied. A call that queues a crawl costs the crawl price; a call served from a kept listing, including a kept not-found, costs the read price; a 202 and a failed crawl cost nothing."
+            "description": "Returns the store listing of one app for a country and language exactly as Google Play serves it: title, short and full description, what's new, icon, feature graphic, trailer and screenshots. Any language Google Play Console accepts can be requested. The listing is crawled on demand and kept; `freshness` sets how old a kept listing may be before it is crawled again. A call waits for a running crawl for up to about 30 seconds and answers 202 with the crawl state if it is still running; repeat the same request to get the listing. Pass `wait=false` to get the 202 immediately. Repeated requests for the same listing share one crawl. `translated` tells whether Google Play machine-translated the texts instead of showing a translation the developer supplied. The call that queues a crawl costs the crawl price, even when it answers 202; a call served from a kept listing, including a kept not-found, costs the read price; a 202 to a call that found the crawl already running costs nothing, and so do a 400, a 422, a 429 and any 5xx, a failed crawl (502) included."
           },
           "response": []
         },
@@ -1261,7 +1267,7 @@
                 {
                   "key": "id",
                   "value": "com.twitter.android",
-                  "description": "App ID(bundle)"
+                  "description": "Google Play bundle id, e.g. com.example.app. A store link cannot be passed in the path; pass the `id` value from it"
                 }
               ]
             },
@@ -1320,7 +1326,7 @@
                 {
                   "key": "id",
                   "value": "com.twitter.android",
-                  "description": "App ID(bundle)"
+                  "description": "Google Play bundle id, e.g. com.example.app. A store link cannot be passed in the path; pass the `id` value from it"
                 }
               ]
             },
@@ -1496,6 +1502,12 @@
                   "value": "",
                   "description": "Start date. Format YYYY-MM-DD",
                   "disabled": true
+                },
+                {
+                  "key": "fill_gaps",
+                  "value": "",
+                  "description": "Return every month from the developer's earliest to its latest month with estimates within start..end, newest first: a month without estimates appears with downloads and revenue null, so a gap is not read as a zero. Off by default, which leaves such months out.",
+                  "disabled": true
                 }
               ],
               "variable": [
@@ -1533,7 +1545,7 @@
                 {
                   "key": "id",
                   "value": "com.twitter.android",
-                  "description": "Apps to return separated by comma(,)",
+                  "description": "Google Play app ids separated by comma(,). Each id is the bundle id (com.example.app) or a Google Play link (https://play.google.com/store/apps/details?id=com.example.app or market://details?id=com.example.app, URL-encoded); an unrecognised id or an id holding whitespace answers 422",
                   "disabled": false
                 },
                 {
