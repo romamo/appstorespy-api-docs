@@ -113,6 +113,22 @@ get the listing. `wait=false` returns the `202` at once. A call that queues a cr
 the crawl price; a call served from a kept listing costs the read price; a `202` for a crawl
 someone else queued costs nothing. The `X-Cost` response header carries what was charged.
 
+## iPhone Duo screenshots
+
+App Store apps carry two more screenshot sets besides `screenshots`:
+`screenshots_duo_inner` and `screenshots_duo_outer`, the screenshots for the inner and the
+outer display of the iPhone Duo, as arrays of image URLs in the requested language. Each is
+`null` when the app has none. They are App Store only; Google Play apps have no such field.
+
+`GET /ios/apps/{id}` and `GET /ios/apps` return them. `POST /ios/apps/query` returns them
+only when `fields` names them, since they are not in its default field list. Neither is a
+filter.
+
+```bash
+curl -s -H "API-KEY: $API_KEY" \
+  "https://api.appstorespy.com/v1/ios/apps/1574776971?fields=name,screenshots_duo_inner,screenshots_duo_outer"
+```
+
 ## Sorting and paging
 
 `sort` takes a comma-separated list, with a leading `-` for descending:
