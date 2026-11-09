@@ -52,3 +52,4 @@ home = "romamo/AppstorespyOS"
 triage = "act"
 fix = "act"
 land = "act"
+upgrade = "act"                   # shipmill config migrations land without a question
