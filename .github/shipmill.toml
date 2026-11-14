@@ -33,10 +33,11 @@ freeze_lanes = ["stable"]
 [lanes.stable]                      # unused while mode is off
 github_release = false
 
-# The gate merges green PRs (Roman, 2026-10-26, AppstorespyOS D-9 and D-11, as in the
-# other AppStoreSpy repos); nothing here deploys. Every write posts as shipmill-romamo[bot]
+# The repo is public, so a merge reaches customers at once: the gate triages, fixes and
+# reviews, labels a ready PR shipmill-ready, and Roman merges, as in as-rest and graph2
+# (Roman, 2026-11-14, AppstorespyOS D-9). Every write posts as shipmill-romamo[bot]
 [agents]
-prompt = "/shipmill:github-issue-triage {repo} triage the new issues; merge when green"
+prompt = "/shipmill:github-issue-triage {repo} triage the new issues; do not merge. Review open PRs and label a green one that passes review `shipmill-ready`"
 retry_hours = 24      # unchanged findings start a new session after this
 notify = true         # a desktop notification when a session waits on you
 remind_hours = 4      # repeat it while the session still waits
@@ -51,5 +52,5 @@ home = "romamo/AppstorespyOS"
 [autonomy]
 triage = "act"
 fix = "act"
-land = "act"
+land = "propose"                  # reviews and labels shipmill-ready; Roman merges
 upgrade = "act"                   # shipmill config migrations land without a question
