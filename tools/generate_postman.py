@@ -2,10 +2,14 @@
 Regenerate the Postman collection from the live contract.
 
     python tools/generate_postman.py
+    python tools/generate_postman.py --check
 
 The collection is a build artifact: regenerate it after any endpoint change rather than
-editing it by hand. Stdlib only, so it needs no install.
+editing it by hand. `--check` compares the committed collection with what the generator
+would write and exits 1 on a difference; CI runs it on every pull request. Stdlib only,
+so it needs no install.
 """
+import argparse
 import json
 import sys
 import urllib.request
@@ -113,11 +117,50 @@ def resolve(param: dict, spec: dict) -> dict:
     return param
 
 
-if __name__ == "__main__":
+def serialise(collection: dict) -> str:
+    """The collection exactly as it is committed; the write and the check both use it."""
+    return json.dumps(collection, indent=2, ensure_ascii=False) + "\n"
+
+
+def fetch_spec() -> dict:
     with urllib.request.urlopen(SPEC, timeout=30) as response:
-        spec = json.load(response)
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else OUT
-    with out.open("w") as handle:
-        json.dump(build(spec), handle, indent=2, ensure_ascii=False)
-        handle.write("\n")
-    print(f"wrote {out}")
+        return json.load(response)
+
+
+def check(out: Path, expected: str) -> int:
+    fix = "python tools/generate_postman.py"
+    if not out.is_file():
+        print(f"{out} is missing; run `{fix}` to generate it", file=sys.stderr)
+        return 1
+    if out.read_bytes() != expected.encode("utf-8"):
+        print(
+            f"{out} differs from what tools/generate_postman.py writes from {SPEC} "
+            f"(a hand edit, or a contract change since it was generated); "
+            f"run `{fix}` and commit the result",
+            file=sys.stderr,
+        )
+        return 1
+    print(f"{out} matches the generator's output")
+    return 0
+
+
+def main(argv: list[str]) -> int:
+    parser = argparse.ArgumentParser(description="Regenerate the Postman collection from the live contract.")
+    parser.add_argument("out", nargs="?", type=Path, default=OUT, help=f"collection path (default: {OUT})")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="compare the collection with the generator's output instead of writing it; exit 1 on a difference",
+    )
+    args = parser.parse_args(argv)
+    expected = serialise(build(fetch_spec()))
+    if args.check:
+        return check(args.out, expected)
+    with args.out.open("w", encoding="utf-8") as handle:
+        handle.write(expected)
+    print(f"wrote {args.out}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
