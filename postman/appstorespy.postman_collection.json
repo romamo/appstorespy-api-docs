@@ -100,9 +100,15 @@
                   "disabled": true
                 },
                 {
+                  "key": "published",
+                  "value": "",
+                  "description": "true for apps on the store, false for removed apps. Omitted, it searches all apps today; from 2027-02-08 an omitted published means true. Pass published=true for apps on the store.",
+                  "disabled": true
+                },
+                {
                   "key": "country",
                   "value": "",
-                  "description": "Country for specific country fields. Default - US.",
+                  "description": "Country for specific country fields, case-insensitive (`us` or `US`). Default - US.",
                   "disabled": true
                 },
                 {
@@ -126,7 +132,7 @@
                 {
                   "key": "page",
                   "value": "",
-                  "description": "Page",
+                  "description": "1-based page. When another reachable page exists, the response carries a `Link: <url>; rel=\"next\"` header (RFC 8288): this request with `page` set to the next one.",
                   "disabled": true
                 }
               ]
@@ -161,7 +167,7 @@
               ],
               "query": []
             },
-            "description": "|**Fields**||||\n|---|---|---|---|\n|**Name**         |**Type**    |**Sort**|**Description**|\n|name             |string      |-   |Name|\n|bundle           |string      |-   |Bundle|\n|description_full |string      |-   |Full Description|\n|published        |boolean     |-   |Published|\n|listing_visible  |boolean     |-   |Published in request country|\n|category         |string      |-   |Сategory|\n|category_type    |string      |-   |Type|\n|revenue_month    |integer     |+   |Monthly Revenue|\n|revenue_lifetime |integer     |-   |Lifetime Revenue|\n|downloads_month  |integer     |+   |Monthly Downloads|\n|downloads_lifetime|integer    |-   |Lifetime Downloads|\n|update_date      |date ISO8601|+   |Last Updated|\n|release_date     |date ISO8601|+   |Release date|\n|developer_name   |string      |-   |Developer name|\n|description_short|string      |-   |Short description|\n|whatsnew         |string      |-   |Whatsnew|\n|icon             |string      |-   |Image|\n|video            |string      |-   |Trailer|\n|screenshots      |[]string    |-   |Screenshots|\n|screenshots_duo_inner|[]string|-   |iPhone Duo inner display screenshots|\n|screenshots_duo_outer|[]string|-   |iPhone Duo outer display screenshots|\n|removal_date     |date ISO8601|+   |Removal date|\n|version          |string      |-   |Version|\n|size             |float       |-   |Size|\n|rating_count     |integer     |+   |Ratings|\n|rating_value     |float       |+   |Rating in request country|\n|review_count     |integer     |+   |Reviews|\n|rating_avg       |float       |+   |Rating|\n|iap              |boolean     |-   |Inapp|\n|copyright        |string      |-   |Copyright|\n|seller           |string      |-   |Seller|\n|chart_info       |object      |+   |App's chart info: category, collection, country, position for today|\n\n\n|**Filters**|||\n|---|---|---|\n|**Name**|**Type**|**Description**|\n|name|string|Name|\n|published|boolean|Published|\n|category_type|string|APP or GAME|\n|revenue_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|downloads_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|update_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|release_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|rating_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|developer|string|Developer name|\n|developer_id|string|Developer id|\n|active_countries|[]string|[\"US\", \"DE\", \"FR\"] - List of countries where app is available (At least one country)|\n|category|string|App Store category: \"TRAVEL\", \"EDUCATION\", \"GAMES_STRATEGY\", \"LIFESTYLE\" etc|\n|review_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|rating_avg|ValueRange|{\"gte\": 3.5, \"lte\": 5.0}|\n|with_ads|boolean|With Ads|\n|advertised|boolean|Advertised|",
+            "description": "|**Fields**||||\n|---|---|---|---|\n|**Name**         |**Type**    |**Sort**|**Description**|\n|name             |string      |-   |Name|\n|bundle           |string      |-   |Bundle|\n|description_full |string      |-   |Full Description|\n|published        |boolean     |-   |Published|\n|listing_visible  |boolean     |-   |Published in request country|\n|category         |string      |-   |Сategory|\n|category_type    |string      |-   |Type|\n|revenue_month    |integer     |+   |Monthly Revenue|\n|revenue_lifetime |integer     |-   |Lifetime Revenue|\n|downloads_month  |integer     |+   |Monthly Downloads|\n|downloads_lifetime|integer    |-   |Lifetime Downloads|\n|downloads_12m    |integer     |+   |Downloads in the 12 calendar months ending last month; null when there is no data|\n|downloads_ytd    |integer     |+   |Downloads from January through last month; null when there is no data|\n|downloads_prev_year|integer   |+   |Downloads in the last calendar year; null when there is no data|\n|downloads_12m_months|integer  |-   |Months of estimates downloads_12m sums; null when there is no data|\n|downloads_ytd_months|integer  |-   |Months of estimates downloads_ytd sums; null when there is no data|\n|downloads_prev_year_months|integer|-|Months of estimates downloads_prev_year sums; null when there is no data|\n|yearly_recalculated|datetime ISO8601|-|When the yearly values were last recomputed; null when there is no data|\n|update_date      |date ISO8601|+   |Last Updated|\n|release_date     |date ISO8601|+   |Release date|\n|developer_name   |string      |-   |Developer name|\n|description_short|string      |-   |Short description|\n|whatsnew         |string      |-   |Whatsnew|\n|icon             |string      |-   |Image|\n|video            |string      |-   |Trailer|\n|screenshots      |[]string    |-   |Screenshots|\n|screenshots_duo_inner|[]string|-   |iPhone Duo inner display screenshots|\n|screenshots_duo_outer|[]string|-   |iPhone Duo outer display screenshots|\n|removal_date     |date ISO8601|+   |Removal date|\n|version          |string      |-   |Version|\n|size             |float       |-   |Size|\n|rating_count     |integer     |+   |Ratings|\n|rating_value     |float       |+   |Rating in request country|\n|review_count     |integer     |+   |Reviews|\n|rating_avg       |float       |+   |Rating|\n|iap              |boolean     |-   |Inapp|\n|copyright        |string      |-   |Copyright|\n|seller           |string      |-   |Seller|\n|chart_info       |object      |+   |App's chart info: category, collection, country, position for today|\n\n\n|**Filters**|||\n|---|---|---|\n|**Name**|**Type**|**Description**|\n|name|string|Name|\n|published|boolean|true for apps on the store, false for removed apps; omitted or null, all apps today. From 2027-02-08 an omitted published means true (null still means all apps, and a filter with removal_date and no published still matches removed apps): pass true for apps on the store|\n|category_type|string|APP or GAME|\n|revenue_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|downloads_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|update_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|release_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|rating_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|developer|string|Developer name|\n|developer_id|string|Developer id|\n|active_countries|[]string|[\"US\", \"DE\", \"FR\"] - List of countries where app is available (At least one country)|\n|category|string|App Store category: \"TRAVEL\", \"EDUCATION\", \"GAMES_STRATEGY\", \"LIFESTYLE\" etc|\n|review_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|rating_avg|ValueRange|{\"gte\": 3.5, \"lte\": 5.0}|\n|with_ads|boolean|With Ads|\n|advertised|boolean|Advertised|\n|downloads_12m|ValueRange|{\"gte\": 1000000} - Downloads in the 12 calendar months ending last month, as a number of downloads (not thousands)|\n|downloads_ytd|ValueRange|{\"gte\": 1000000} - Downloads from January through last month, as a number of downloads (not thousands)|\n|downloads_prev_year|ValueRange|{\"gte\": 1000000} - Downloads in the last calendar year, as a number of downloads (not thousands)|\n\nThe App Store holds no yearly installs: a filter or sort naming installs_12m, installs_ytd or installs_prev_year answers 422.",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"filter\": {}\n}",
@@ -282,7 +288,7 @@
                 {
                   "key": "country",
                   "value": "",
-                  "description": "Country for which return data. By default: US.",
+                  "description": "Country for which return data, case-insensitive (`us` or `US`). By default: US.",
                   "disabled": true
                 },
                 {
@@ -329,7 +335,7 @@
                 {
                   "key": "country",
                   "value": "",
-                  "description": "Country for which return data. By default: US.",
+                  "description": "Country for which return data, case-insensitive (`us` or `US`). By default: US.",
                   "disabled": true
                 },
                 {
@@ -376,7 +382,7 @@
                 {
                   "key": "country",
                   "value": "",
-                  "description": "App storefront",
+                  "description": "App storefront, case-insensitive (`us` or `US`)",
                   "disabled": true
                 },
                 {
@@ -457,7 +463,7 @@
                 {
                   "key": "page",
                   "value": "",
-                  "description": "Page",
+                  "description": "1-based page. When another reachable page exists, the response carries a `Link: <url>; rel=\"next\"` header (RFC 8288): this request with `page` set to the next one.",
                   "disabled": true
                 }
               ]
@@ -741,7 +747,7 @@
                 {
                   "key": "country",
                   "value": "",
-                  "description": "Country codes (comma-separated)",
+                  "description": "Country codes (comma-separated, case-insensitive: `us,gb` or `US,GB`)",
                   "disabled": true
                 },
                 {
@@ -777,7 +783,7 @@
                 {
                   "key": "page",
                   "value": "",
-                  "description": "Page",
+                  "description": "1-based page. When another reachable page exists, the response carries a `Link: <url>; rel=\"next\"` header (RFC 8288): this request with `page` set to the next one.",
                   "disabled": true
                 }
               ]
@@ -902,13 +908,13 @@
                 {
                   "key": "published",
                   "value": "",
-                  "description": "Empty for all.",
+                  "description": "true for apps on the store, false for removed apps. Omitted, it searches all apps today; from 2027-02-08 an omitted published means true. Pass published=true for apps on the store.",
                   "disabled": true
                 },
                 {
                   "key": "country",
                   "value": "",
-                  "description": "Country for specific country fields. Default - US.",
+                  "description": "Country for specific country fields, case-insensitive (`us` or `US`). Default - US.",
                   "disabled": true
                 },
                 {
@@ -938,7 +944,7 @@
                 {
                   "key": "page",
                   "value": "",
-                  "description": "Page",
+                  "description": "1-based page. When another reachable page exists, the response carries a `Link: <url>; rel=\"next\"` header (RFC 8288): this request with `page` set to the next one.",
                   "disabled": true
                 }
               ]
@@ -973,7 +979,7 @@
               ],
               "query": []
             },
-            "description": "|**Fields**||||\n|---|---|---|---|\n|**Name**         |**Type**    |**Sort**|**Description**|\n|name             |string      |-   |Name|\n|bundle           |string      |-   |Bundle|\n|description_full |string      |-   |Description|\n|published        |boolean     |-   |Published|\n|listing_visible  |boolean     |-   |Published in request country|\n|category         |string      |-   |Category|\n|category_type    |string      |-   |Type|\n|revenue_month    |integer     |+   |Monthly Revenue|\n|revenue_lifetime |integer     |-   |Lifetime Revenue|\n|downloads_month  |integer     |+   |Monthly Downloads|\n|downloads_lifetime|integer    |-   |Lifetime Downloads|\n|update_date      |date ISO8601|+   |Last Updated|\n|release_date     |date ISO8601|+   |Release date|\n|developer_name   |string      |-   |Developer name|\n|description_short|string      |-   |Short description|\n|whatsnew         |string      |-   |Whatsnew|\n|icon             |string      |-   |Image|\n|video            |string      |-   |Trailer|\n|screenshots      |[]string    |-   |Screenshots|\n|feature_graphic  |string      |-   |Feature graphic|\n|removal_date     |date ISO8601|+   |Removal date|\n|version          |string      |-   |Version|\n|size             |float       |-   |Size|\n|downloads_daily  |integer     |+   |Daily Installs|\n|downloads_exact  |integer     |+   |Total Installs|\n|downloads_mark   |integer     |+   |Installs|\n|rating_count     |integer     |+   |Ratings|\n|rating_value     |float       |+   |Rating in request country|\n|review_count     |integer     |+   |Reviews|\n|rating_avg       |float       |+   |Rating|\n|iap              |boolean     |-   |Inapp|\n|editorial        |boolean     |-   |Editor's choise|\n|hosts            |[]string    |-   |Hosts|\n|chart_info       |object      |+   |App's chart info: category, collection, country, position for today|\n\n\n|**Filters**|||\n|---|---|---|\n|**Name**|**Type**|**Description**|\n|name|string|Name|\n|published|boolean|Published|\n|category_type|string|APP or GAME|\n|revenue_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|downloads_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|update_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|release_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|rating_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|developer|string|Developer name|\n|developer_id|string|Developer id|\n|editorial|boolean|Editor's choise|\n|iap|boolean|Inapp|\n|active_countries|[]string|[\"US\", \"DE\", \"FR\"] - List of countries where app is available (At least one country)|\n|category|string|Google Play category: \"GAME_ARCADE\", \"SOCIAL\", \"ART_AND_DESIGN\", \"LIFESTYLE\" etc|\n|downloads_mark|integer|100, 500, 1000, 5000, 10000 etc|\n|downloads_daily|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|downloads_exact|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|review_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|similar_apps|string|\"com.twitter.android\" - Twitter similar apps|\n|reverse_similar_apps|string|\"com.twitter.android\" - Apps with Twitter in similar's list|\n|rating_avg|ValueRange|{\"gte\": 3.5, \"lte\": 5.0}|\n|hosts|string||\n|with_ads|boolean|With Ads|\n|advertised|boolean|Advertised|",
+            "description": "|**Fields**||||\n|---|---|---|---|\n|**Name**         |**Type**    |**Sort**|**Description**|\n|name             |string      |-   |Name|\n|bundle           |string      |-   |Bundle|\n|description_full |string      |-   |Description|\n|published        |boolean     |-   |Published|\n|listing_visible  |boolean     |-   |Published in request country|\n|category         |string      |-   |Category|\n|category_type    |string      |-   |Type|\n|revenue_month    |integer     |+   |Monthly Revenue|\n|revenue_lifetime |integer     |-   |Lifetime Revenue|\n|downloads_month  |integer     |+   |Monthly Downloads|\n|downloads_lifetime|integer    |-   |Lifetime Downloads|\n|downloads_12m    |integer     |+   |Downloads in the 12 calendar months ending last month; null when there is no data|\n|downloads_ytd    |integer     |+   |Downloads from January through last month; null when there is no data|\n|downloads_prev_year|integer   |+   |Downloads in the last calendar year; null when there is no data|\n|downloads_12m_months|integer  |-   |Months of estimates downloads_12m sums; null when there is no data|\n|downloads_ytd_months|integer  |-   |Months of estimates downloads_ytd sums; null when there is no data|\n|downloads_prev_year_months|integer|-|Months of estimates downloads_prev_year sums; null when there is no data|\n|installs_12m     |integer     |+   |Installs in the 365 days ending today; null when there is no data|\n|installs_ytd     |integer     |+   |Installs from January 1 to today; null when there is no data|\n|installs_prev_year|integer    |+   |Installs from December 31 to December 31 of last year; null when there is no data|\n|yearly_recalculated|datetime ISO8601|-|When the yearly values were last recomputed; null when there is no data|\n|update_date      |date ISO8601|+   |Last Updated|\n|release_date     |date ISO8601|+   |Release date|\n|developer_name   |string      |-   |Developer name|\n|description_short|string      |-   |Short description|\n|whatsnew         |string      |-   |Whatsnew|\n|icon             |string      |-   |Image|\n|video            |string      |-   |Trailer|\n|screenshots      |[]string    |-   |Screenshots|\n|feature_graphic  |string      |-   |Feature graphic|\n|removal_date     |date ISO8601|+   |Removal date|\n|version          |string      |-   |Version|\n|size             |float       |-   |Size|\n|downloads_daily  |integer     |+   |Daily Installs|\n|downloads_exact  |integer     |+   |Total Installs|\n|downloads_mark   |integer     |+   |Installs|\n|rating_count     |integer     |+   |Ratings|\n|rating_value     |float       |+   |Rating in request country|\n|review_count     |integer     |+   |Reviews|\n|rating_avg       |float       |+   |Rating|\n|iap              |boolean     |-   |Inapp|\n|editorial        |boolean     |-   |Editor's choise|\n|hosts            |[]string    |-   |Hosts|\n|chart_info       |object      |+   |App's chart info: category, collection, country, position for today|\n\n\n|**Filters**|||\n|---|---|---|\n|**Name**|**Type**|**Description**|\n|name|string|Name|\n|published|boolean|true for apps on the store, false for removed apps; omitted or null, all apps today. From 2027-02-08 an omitted published means true (null still means all apps, and a filter with removal_date and no published still matches removed apps): pass true for apps on the store|\n|category_type|string|APP or GAME|\n|revenue_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|downloads_month|ValueRange|{\"gte\": 100, \"lte\": 500} (In this field you need write values in thousands: 100 = 100000, 500 = 500000)|\n|update_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|release_date|DateRange|{\"gte\": \"2021-01-01\", \"lte\": \"2022-01-01\"}|\n|rating_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|developer|string|Developer name|\n|developer_id|string|Developer id|\n|editorial|boolean|Editor's choise|\n|iap|boolean|Inapp|\n|active_countries|[]string|[\"US\", \"DE\", \"FR\"] - List of countries where app is available (At least one country)|\n|category|string|Google Play category: \"GAME_ARCADE\", \"SOCIAL\", \"ART_AND_DESIGN\", \"LIFESTYLE\" etc|\n|downloads_mark|integer|100, 500, 1000, 5000, 10000 etc|\n|downloads_daily|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|downloads_exact|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|review_count|ValueRange|{\"gte\": 1000, \"lte\": 5000}|\n|similar_apps|string|\"com.twitter.android\" - Twitter similar apps|\n|reverse_similar_apps|string|\"com.twitter.android\" - Apps with Twitter in similar's list|\n|rating_avg|ValueRange|{\"gte\": 3.5, \"lte\": 5.0}|\n|hosts|string||\n|with_ads|boolean|With Ads|\n|advertised|boolean|Advertised|\n|downloads_12m|ValueRange|{\"gte\": 1000000} - Downloads in the 12 calendar months ending last month, as a number of downloads (not thousands)|\n|downloads_ytd|ValueRange|{\"gte\": 1000000} - Downloads from January through last month, as a number of downloads (not thousands)|\n|downloads_prev_year|ValueRange|{\"gte\": 1000000} - Downloads in the last calendar year, as a number of downloads (not thousands)|\n|installs_12m|ValueRange|{\"gte\": 5000, \"lte\": 9000} - Installs in the 365 days ending today, as a number of installs|\n|installs_ytd|ValueRange|{\"gte\": 5000, \"lte\": 9000} - Installs from January 1 to today, as a number of installs|\n|installs_prev_year|ValueRange|{\"gte\": 5000, \"lte\": 9000} - Installs from December 31 to December 31 of last year, as a number of installs|",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"filter\": {}\n}",
@@ -1094,7 +1100,7 @@
                 {
                   "key": "country",
                   "value": "",
-                  "description": "Country for which return data. By default: US.",
+                  "description": "Country for which return data, case-insensitive (`us` or `US`). By default: US.",
                   "disabled": true
                 },
                 {
@@ -1112,7 +1118,7 @@
                 }
               ]
             },
-            "description": "Returns the full Google Play listing for a single app, looked up by its bundle id. Use `country` to select the storefront and `language` for the metadata language; `fields` limits the response to the columns you need."
+            "description": "Returns the full Google Play listing for a single app, looked up by its bundle id. Use `country` to select the storefront and `language` for the metadata language; `fields` limits the response to the columns you need. Values are AppStoreSpy's latest crawl: `country_crawled` says when the selected country was read."
           },
           "response": []
         },
@@ -1165,7 +1171,7 @@
                 }
               ]
             },
-            "description": "Get Google Play apps daily installs.\n\n`ipd` is derived from the cumulative install total: each increase is spread evenly across the elapsed days since the total last changed, so collection gaps and lagging reports are amortised rather than reported as a single-day spike. Values are raw and never negative.\n\nBy default these are unsmoothed figures. AppstoreSpy's Daily Installs chart additionally applies a moving average for readability. Pass `smooth=true` to get that series: a centered, triangular-weighted 9-day moving average of `ipd` (weights 1,2,3,4,5,4,3,2,1; days without data are skipped and the weights renormalised). Neighbouring days outside `start`/`end` are included in the window, so the first and last days are smoothed the same way as the rest."
+            "description": "Get Google Play apps daily installs.\n\n`ipd` is derived from the cumulative install total: each increase is spread evenly across the elapsed days since the total last changed, so collection gaps and lagging reports are amortised rather than reported as a single-day spike. Values are raw and never negative.\n\nBy default these are unsmoothed figures. AppstoreSpy's Daily Installs chart additionally applies a moving average for readability. Pass `smooth=true` to get that series: a centered, triangular-weighted 9-day moving average of `ipd` (weights 1,2,3,4,5,4,3,2,1; days without data are skipped and the weights renormalised). Neighbouring days outside `start`/`end` are included in the window, so the first and last days are smoothed the same way as the rest.\n\nRate limited per API key to 60/minute, counted once per call whatever the number of ids; above it the call answers 429, which costs no credits."
           },
           "response": []
         },
@@ -1194,7 +1200,7 @@
                 {
                   "key": "country",
                   "value": "",
-                  "description": "Country of the listing (Google Play `gl`). By default: US.",
+                  "description": "Country of the listing (Google Play `gl`), case-insensitive. By default: US.",
                   "disabled": true
                 },
                 {
@@ -1253,7 +1259,7 @@
                 {
                   "key": "country",
                   "value": "",
-                  "description": "Country for which return data. By default: US.",
+                  "description": "Country for which return data, case-insensitive (`us` or `US`). By default: US.",
                   "disabled": true
                 },
                 {
@@ -1381,7 +1387,7 @@
                 {
                   "key": "page",
                   "value": "",
-                  "description": "Page",
+                  "description": "1-based page. When another reachable page exists, the response carries a `Link: <url>; rel=\"next\"` header (RFC 8288): this request with `page` set to the next one.",
                   "disabled": true
                 }
               ]
@@ -1659,7 +1665,7 @@
                 {
                   "key": "country",
                   "value": "",
-                  "description": "Country codes (comma-separated)",
+                  "description": "Country codes (comma-separated, case-insensitive: `us,gb` or `US,GB`)",
                   "disabled": true
                 },
                 {
@@ -1695,7 +1701,7 @@
                 {
                   "key": "page",
                   "value": "",
-                  "description": "Page",
+                  "description": "1-based page. When another reachable page exists, the response carries a `Link: <url>; rel=\"next\"` header (RFC 8288): this request with `page` set to the next one.",
                   "disabled": true
                 }
               ]

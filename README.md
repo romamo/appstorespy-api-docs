@@ -66,7 +66,9 @@ Create, rename and revoke keys at [appstorespy.com/profile/api](https://appstore
 The windowed aggregates are `downloads_month`, `downloads_lifetime`, `downloads_daily`,
 `downloads_exact`, `downloads_mark`, `revenue_month` and `revenue_lifetime`. On the GET
 surface the equivalents are `downloads` and `revenue`, and asking for a windowed one
-returns `400 {"detail": "Wrong field - downloads_month"}`.
+returns `400 {"detail": "Wrong field - downloads_month"}`. The
+[yearly figures](#yearly-installs-and-downloads) are not among them: GET responses carry
+them too.
 
 A few names are Google Play only on the GET surface: `installs`, `installs_exact` and
 `review_count`.
@@ -92,6 +94,46 @@ of `start`/`end`, while the chart smooths only the 30 days it draws, so the firs
 days of a range can still differ slightly.
 
 `start` defaults to the 30 days ending at `end`, and `end` defaults to the newest data.
+
+## Yearly installs and downloads
+
+Apps and developers carry yearly totals next to the monthly ones:
+
+| Field | Window | Store |
+|---|---|---|
+| `downloads_12m` | the 12 calendar months ending last month | both |
+| `downloads_ytd` | January through last month | both |
+| `downloads_prev_year` | the last calendar year | both |
+| `installs_12m` | the 365 days ending today | Google Play |
+| `installs_ytd` | January 1 to today | Google Play |
+| `installs_prev_year` | December 31 to December 31 of last year | Google Play |
+
+The downloads figures are a number of downloads, not thousands: unlike a `downloads_month`
+filter, `{"gte": 1000000}` on `downloads_12m` means a million. They sum monthly estimates,
+so they stop at last month. The installs figures are a number of installs; `installs_12m`
+is counted from the daily exact installs. The App Store holds no yearly installs, and on
+`POST /ios/apps/query` a filter or sort naming one answers `422`.
+
+On apps, `downloads_12m_months`, `downloads_ytd_months` and `downloads_prev_year_months`
+say how many months of estimates each downloads figure sums, so a `downloads_12m_months`
+below 12 means the figure covers less than its window. `yearly_recalculated` is when the
+yearly values were last recomputed, as an ISO 8601 date-time. Every one of these fields is
+`null` when there is no data.
+
+`POST /{store}/apps/query` and `POST /{store}/apps/similar` return them in their default
+field list, sort by the six totals and filter on them as ranges. `GET /{store}/apps` and
+`GET /{store}/apps/{id}` return them too. Developer records (`GET /{store}/developers`,
+`GET /{store}/developers/{id}`, `POST /{store}/developers/query`) carry the totals and
+`yearly_recalculated` but no month counts, and `POST /{store}/developers/query` sorts and
+filters on the totals.
+
+```bash
+curl -s -X POST -H 'API-KEY: YOUR_KEY' -H 'Content-Type: application/json' \
+  'https://api.appstorespy.com/v1/play/apps/query' \
+  -d '{"sort": "-installs_12m", "limit": 2,
+       "fields": ["id", "name", "installs_12m", "downloads_12m", "downloads_12m_months"],
+       "filter": {"downloads_12m": {"gte": 1000000}}}'
+```
 
 ## Listings in any language
 
