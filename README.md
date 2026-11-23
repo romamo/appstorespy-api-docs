@@ -196,6 +196,10 @@ API key and cost the same credits as the endpoint each one wraps. See
 - [`spectral/`](spectral) — the ruleset the contract is linted against
 - [`tools/`](tools) — regenerates the collection from the live contract: `python tools/generate_postman.py`
 
+Every pull request runs `python tools/generate_postman.py --check`, which fails when the
+committed collection differs from the generator's output, whether from a hand edit or
+from a contract change; regenerate the collection to fix it.
+
 ## Support
 
 [appstorespy.com/support](https://appstorespy.com/support) · support@appstorespy.com
